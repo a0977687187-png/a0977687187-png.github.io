@@ -1,0 +1,745 @@
+.big-button {
+  min-height: 88px;
+  min-width: 64px;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--color-primary);
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.1s ease, filter 0.1s ease;
+}
+
+.big-button:active {
+  transform: scale(0.96);
+}
+
+.big-button:disabled {
+  filter: grayscale(0.6);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.big-button .icon {
+  font-size: 32px;
+}
+
+.big-button-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.points-display {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.points-display .coin {
+  font-size: 28px;
+}
+
+.points-display .value {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+  transition: all 0.2s ease;
+}
+
+.pin-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.pin-pad button {
+  height: 64px;
+  border-radius: 16px;
+  border: 2px solid var(--color-border);
+  background: white;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pin-dots {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.pin-dots .dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary-dark);
+  background: transparent;
+}
+
+.pin-dots .dot.filled {
+  background: var(--color-primary-dark);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 24px;
+}
+
+.modal-box {
+  background: white;
+  border-radius: var(--radius);
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.celebration-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(160deg, #ffe9b8, #ffcf7a);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  text-align: center;
+  padding: 24px;
+  animation: fadeIn 0.3s ease;
+}
+
+.celebration-overlay .coin-burst {
+  font-size: 64px;
+  animation: pop 0.6s ease;
+}
+
+.celebration-overlay .celebration-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 16px 0 8px;
+}
+
+.celebration-overlay .celebration-points {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--color-primary-dark);
+}
+
+.celebration-overlay .celebration-quote {
+  margin-top: 16px;
+  font-size: 18px;
+  color: #6a4a1a;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.3); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.task-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 2px solid var(--color-border);
+  background: white;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-size: 17px;
+}
+
+.task-card:active {
+  transform: scale(0.98);
+}
+
+.task-card .badge {
+  background: var(--color-primary);
+  color: white;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 8px;
+}
+
+.gear-btn {
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.avatar-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: white;
+  border: 2px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.avatar-circle svg,
+.avatar-circle-lg svg {
+  width: 100%;
+  height: 100%;
+}
+
+.avatar-circle-lg {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: white;
+  border: 3px solid var(--color-border);
+  margin: 0 auto;
+}
+
+.hp-bar-track {
+  width: 100%;
+  height: 20px;
+  border-radius: 999px;
+  background: #f2d9d9;
+  overflow: hidden;
+}
+
+.hp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff6b6b, #e0473c);
+  transition: width 0.4s ease;
+}
+
+.bottom-info-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: white;
+  border-top: 2px solid var(--color-border);
+  font-size: 14px;
+}
+
+.wizard-step-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.wizard-step-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-border);
+}
+
+.wizard-step-dots .dot.active {
+  background: var(--color-primary);
+}
+
+.primary-btn {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primary-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.secondary-btn {
+  background: white;
+  color: var(--color-text);
+  border: 2px solid var(--color-border);
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.danger-btn {
+  background: var(--color-danger);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.warning-banner {
+  background: #fff3cd;
+  border: 2px solid #ffe08a;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #7a5c00;
+}
+
+/* ---------- 1.1 天空到草地漸層背景 + 視差雲朵 ---------- */
+.battle-scene {
+  position: relative;
+  height: 220px;
+  border-radius: var(--radius);
+  background: linear-gradient(to bottom, #80deea 0%, #e0f7fa 40%, #fff9c4 70%, #c8e6c9 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 16px 24px 24px;
+  overflow: hidden;
+}
+
+.parallax-cloud {
+  position: absolute;
+  top: 18px;
+  background: #ffffff;
+  opacity: 0.8;
+  border-radius: 999px;
+  filter: blur(1px);
+}
+
+.parallax-cloud.cloud-a {
+  width: 112px;
+  height: 32px;
+  animation: cloudDrift 25s linear infinite;
+}
+
+.parallax-cloud.cloud-b {
+  width: 160px;
+  height: 40px;
+  top: 8px;
+  animation: cloudDrift 35s linear infinite -10s;
+}
+
+@keyframes cloudDrift {
+  from { transform: translateX(-160px); }
+  to { transform: translateX(480px); }
+}
+
+/* ---------- 2. 英雄／怪獸骨架動畫 ---------- */
+.battle-hero {
+  position: relative;
+}
+
+.battle-monster {
+  position: relative;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.battle-monster.monster-eliminated {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+.hero-rig {
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+
+.hero-rig.anim-idle {
+  animation: characterIdle 2s ease-in-out infinite;
+}
+
+.hero-rig.anim-prep {
+  animation: characterPrep 0.4s ease-out forwards;
+}
+
+.hero-rig.anim-slash {
+  animation: characterSlash 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes characterIdle {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(-4px) scaleY(0.97) scaleX(1.02); }
+}
+
+/* 蓄力：後退壓低（結束姿勢 = characterSlash 的起始姿勢，兩段動畫無縫銜接） */
+@keyframes characterPrep {
+  0% { transform: translateX(0) rotate(0deg) scaleY(1); }
+  100% { transform: translateX(-10px) rotate(-8deg) scaleY(0.94); }
+}
+
+/* 衝刺揮擊：從蓄力姿勢起跳 → 前衝命中 → 小回彈 → 歸位 */
+@keyframes characterSlash {
+  0% { transform: translateX(-10px) rotate(-8deg) scaleY(0.94); }
+  35% { transform: translateX(58px) rotate(6deg) scaleY(1.04); }
+  60% { transform: translateX(50px) rotate(0deg) scaleY(0.98); }
+  100% { transform: translateX(0) rotate(0deg) scaleY(1); }
+}
+
+/* 受擊：外層 div 震動＋內層閃白，不與 svg 的鏡像 transform 打架 */
+.monster-rig {
+  transform-origin: 50% 100%;
+}
+
+.monster-rig.monster-hurt {
+  animation: shake 0.4s ease;
+}
+
+.monster-rig.monster-hurt svg {
+  animation: hurtFlash 0.4s ease;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, -2px, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 3px, 0); }
+  40%, 60% { transform: translate3d(6px, -3px, 0); }
+}
+
+@keyframes hurtFlash {
+  0%, 100% { filter: brightness(1); }
+  30% { filter: brightness(1.9) saturate(0.4); }
+}
+
+/* ---------- 每位英雄專屬的攻擊特效（依 skill.particleShape + effectColor 決定）---------- */
+.attack-effect {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.attack-particle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(var(--particle-angle)) translateX(0);
+  opacity: 0;
+  animation: particleBurst 0.5s ease-out forwards;
+}
+
+@keyframes particleBurst {
+  0% { opacity: 0; transform: rotate(var(--particle-angle)) translateX(0) scale(0.4); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: rotate(var(--particle-angle)) translateX(34px) scale(1); }
+}
+
+/* ---------- 怪獸台詞氣泡 ---------- */
+.dialogue-bubble {
+  position: relative;
+  max-width: 220px;
+  background: white;
+  border: 2px solid var(--color-border);
+  border-radius: 14px;
+  padding: 8px 12px;
+  font-size: 14px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  animation: bubblePop 0.3s ease;
+}
+
+.dialogue-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0 8px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
+
+@keyframes bubblePop {
+  0% { opacity: 0; transform: scale(0.85) translateY(4px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.tear-stream {
+  animation: tearDrip 1s ease-in infinite;
+}
+
+@keyframes tearDrip {
+  0% { transform: translateY(0); opacity: 0.9; }
+  80% { opacity: 0.4; }
+  100% { transform: translateY(10px); opacity: 0; }
+}
+
+.skill-card {
+  position: absolute;
+  top: -36px;
+  left: 0;
+  background: white;
+  border: 3px solid var(--color-primary);
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-weight: 800;
+  font-size: 14px;
+  white-space: nowrap;
+  animation: pop 0.4s ease;
+}
+
+/* ---------- 1.2 3D 傷害數字（金色漸層＋黑色描邊）----------
+   注意：描邊必須用 filter: drop-shadow 而非 text-shadow——
+   text-shadow 會從透明填色的文字底下透出來，整團變黑色糊塊（破圖）。 */
+.damage-number {
+  position: absolute;
+  top: -8px;
+  right: -4px;
+  font-family: "Fredoka One", Impact, sans-serif;
+  font-weight: 900;
+  font-size: 26px;
+  background: linear-gradient(to bottom, #ffffff 0%, #fff176 30%, #f57f17 70%, #e65100 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter:
+    drop-shadow(1.5px 0 0 #000)
+    drop-shadow(-1.5px 0 0 #000)
+    drop-shadow(0 1.5px 0 #000)
+    drop-shadow(0 -1.5px 0 #000)
+    drop-shadow(2px 3px 0 rgba(0, 0, 0, 0.55));
+  animation: damageFloat 0.7s ease forwards;
+}
+
+@keyframes damageFloat {
+  0% { opacity: 0; transform: translateY(0) scale(0.8); }
+  30% { opacity: 1; transform: translateY(-6px) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-28px) scale(1); }
+}
+
+/* 招式爆擊字（SHRED! / BOOM! 等），比傷害數字大一號，同樣的金色 3D 描邊做法 */
+.burst-text {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  white-space: nowrap;
+  font-family: "Fredoka One", Impact, sans-serif;
+  font-weight: 900;
+  font-size: 30px;
+  background: linear-gradient(to bottom, #ffffff 0%, #fff176 30%, #f57f17 70%, #e65100 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter:
+    drop-shadow(1.5px 0 0 #000)
+    drop-shadow(-1.5px 0 0 #000)
+    drop-shadow(0 1.5px 0 #000)
+    drop-shadow(0 -1.5px 0 #000)
+    drop-shadow(2px 3px 0 rgba(0, 0, 0, 0.55));
+  animation: burstPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes burstPop {
+  0% { opacity: 0; transform: translate(-50%, 6px) scale(0.5) rotate(-6deg); }
+  60% { opacity: 1; transform: translate(-50%, -4px) scale(1.15) rotate(3deg); }
+  100% { opacity: 1; transform: translate(-50%, -8px) scale(1) rotate(0deg); }
+}
+
+/* ---------- 勝利慶祝：夜空煙火＋禮物開箱 ---------- */
+.victory-overlay {
+  background: linear-gradient(180deg, #23255c 0%, #4a2a72 60%, #6a3d8f 100%);
+}
+
+.victory-overlay .celebration-title {
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.fireworks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.firework {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+}
+
+.firework span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  transform-origin: 2px 2px;
+  opacity: 0;
+  animation: fireworkShoot 1.8s ease-out infinite;
+}
+
+@keyframes fireworkShoot {
+  0% { opacity: 0; transform: rotate(var(--angle)) translateY(0) scaleY(0.6); }
+  10% { opacity: 1; }
+  60% { opacity: 1; transform: rotate(var(--angle)) translateY(-40px) scaleY(1); }
+  100% { opacity: 0; transform: rotate(var(--angle)) translateY(-52px) scaleY(0.4); }
+}
+
+.gift-box-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-top: 12px;
+  animation: giftWiggle 1.4s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+
+.gift-box-btn:active {
+  transform: scale(0.92);
+}
+
+@keyframes giftWiggle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  15% { transform: rotate(-7deg) scale(1.04); }
+  30% { transform: rotate(6deg) scale(1.04); }
+  45% { transform: rotate(-4deg) scale(1.02); }
+  60% { transform: rotate(0deg) scale(1); }
+}
+
+.reward-reveal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  animation: rewardPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reward-sparks {
+  font-size: 34px;
+}
+
+.reward-card {
+  background: #ffffff;
+  color: var(--color-text);
+  border: 3px solid #ffd166;
+  border-radius: 18px;
+  padding: 18px 24px;
+  font-size: 22px;
+  font-weight: 800;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  max-width: 300px;
+}
+
+@keyframes rewardPop {
+  0% { transform: scale(0.2); opacity: 0; }
+  60% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+/* ---------- 英雄商店 ---------- */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.hero-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 6px;
+  border-radius: 16px;
+  border: 2px solid var(--color-border);
+  background: white;
+  cursor: pointer;
+}
+
+.hero-card:active {
+  transform: scale(0.96);
+}
+
+.hero-card.deployed {
+  border: 3px solid var(--color-primary);
+  background: #fff6e8;
+}
+
+.deployed-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-primary);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.hero-name {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.hero-skill {
+  font-size: 12px;
+  color: #8a7a68;
+}
+
+.hero-silhouette {
+  filter: brightness(0.15) saturate(0.2);
+  opacity: 0.9;
+}
+
+.badge-dim {
+  opacity: 0.55;
+}
+
+/* ---------- 每日測驗 ---------- */
+.quiz-option {
+  cursor: pointer;
+}
+
+.quiz-option:disabled {
+  cursor: default;
+}
+
+.quiz-option.quiz-correct {
+  border-color: var(--color-success);
+  background: #e6f7ee;
+}
+
+.quiz-option.quiz-wrong {
+  border-color: var(--color-danger);
+  background: #fdeceb;
+}
+

@@ -1,0 +1,111 @@
+:root {
+  --color-bg: #fff8ec;
+  --color-primary: #ff9f43;
+  --color-primary-dark: #e07b1f;
+  --color-secondary: #4fb0c6;
+  --color-danger: #e0473c;
+  --color-success: #4caf7d;
+  --color-text: #3a2a1a;
+  --color-card: #ffffff;
+  --color-border: #f0d9b5;
+  --radius: 20px;
+  --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", system-ui, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 18px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font-family: inherit;
+}
+
+.app-shell {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  position: relative;
+}
+
+.screen {
+  flex: 1;
+  padding: 16px 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.text-muted {
+  color: #8a7a68;
+  font-size: 14px;
+}
+
+.gold {
+  color: var(--color-primary-dark);
+  font-weight: 700;
+}
+
+input, select, textarea {
+  font-size: 18px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 2px solid var(--color-border);
+  background: white;
+  color: var(--color-text);
+  width: 100%;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--color-secondary);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px;
+}
