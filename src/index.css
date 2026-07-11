@@ -44,6 +44,11 @@ button {
   flex-direction: column;
   background: var(--color-bg);
   position: relative;
+  /* PWA 全螢幕模式（viewport-fit=cover + black-translucent）內容會延伸到
+     手機狀態列（電池/時間）與底部手勢條底下，要用安全區域 inset 留白，
+     否則最上排的返回/齒輪按鈕會被狀態列蓋住點不到。 */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .screen {

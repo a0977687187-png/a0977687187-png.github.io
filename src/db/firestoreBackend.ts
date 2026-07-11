@@ -34,6 +34,25 @@ function docIdOf(store: string, value: unknown): string {
   return String(key);
 }
 
+// Firestore 不接受 undefined 欄位值（會整筆寫入失敗），但 IndexedDB 可以，
+// 專案裡很多地方會寫入 undefined 欄位（例如怪獸還沒被打倒時 defeatedAt: undefined）。
+// 寫入前一律遞迴剝掉 undefined 欄位，讀回來時少了該欄位效果等同 undefined，語意不變。
+function stripUndefined(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(stripUndefined);
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value)) {
+      if (v !== undefined) out[k] = stripUndefined(v);
+    }
+    return out;
+  }
+  return value;
+}
+
+function toDocData(value: unknown): Record<string, unknown> {
+  return stripUndefined(value) as Record<string, unknown>;
+}
+
 export async function getAll<T>(store: string): Promise<T[]> {
   const code = await ready();
   const snap = await getDocs(storeCollection(code, store));
@@ -49,7 +68,7 @@ export async function getById<T>(store: string, id: string): Promise<T | undefin
 export async function put<T>(store: string, value: T): Promise<void> {
   const code = await ready();
   const id = docIdOf(store, value);
-  await setDoc(doc(storeCollection(code, store), id), value as Record<string, unknown>);
+  await setDoc(doc(storeCollection(code, store), id), toDocData(value));
 }
 
 export async function putMany<T>(store: string, values: T[]): Promise<void> {
@@ -58,7 +77,7 @@ export async function putMany<T>(store: string, values: T[]): Promise<void> {
     const batch = writeBatch(getFirestoreDb());
     for (const value of values.slice(i, i + 400)) {
       const id = docIdOf(store, value);
-      batch.set(doc(storeCollection(code, store), id), value as Record<string, unknown>);
+      batch.set(doc(storeCollection(code, store), id), toDocData(value));
     }
     await batch.commit();
   }
@@ -111,7 +130,7 @@ export async function importAllData(data: Record<string, unknown[]>): Promise<vo
       const batch = writeBatch(getFirestoreDb());
       for (const row of rows.slice(i, i + 400)) {
         const id = docIdOf(name, row);
-        batch.set(doc(storeCollection(code, name), id), row as Record<string, unknown>);
+        batch.set(doc(storeCollection(code, name), id), toDocData(row));
       }
       await batch.commit();
     }

@@ -87,22 +87,27 @@ export function Battle() {
 
     setBusy(true);
     setHeroPhase("prep");
-
-    const result = await attackMonster(selectedChild.id, monster.id);
-    if (!result.ok || !result.monster) {
-      setBusy(false);
-      setHeroPhase("idle");
-      return;
-    }
-    const updatedMonster = result.monster;
     const attackingHero = deployedHero;
+
+    // 動畫立刻開播、雲端結算同時在背景進行（同步版一次攻擊要多趟網路來回，
+    // 若等結果回來才播動畫，英雄會僵在蓄力姿勢好幾秒）。失敗時回傳 null，
+    // 保證不會有未接住的錯誤讓 busy 卡死、按鈕永遠不能按。
+    const resultPromise = attackMonster(selectedChild.id, monster.id).catch(() => null);
 
     window.setTimeout(() => {
       setHeroPhase("slash");
       if (soundEnabled) playSwingSound();
     }, T_SLASH);
 
-    window.setTimeout(() => {
+    window.setTimeout(async () => {
+      const result = await resultPromise;
+      if (!result || !result.ok || !result.monster) {
+        setHeroPhase("idle");
+        setBusy(false);
+        return;
+      }
+      const updatedMonster = result.monster;
+
       setMonster(updatedMonster);
       setMonsterHurt(true);
       setDamageNumber(1);
@@ -111,26 +116,26 @@ export function Battle() {
       if (result.defeated) {
         window.setTimeout(() => setEliminating(true), T_ELIMINATE_DELAY);
       }
+
+      window.setTimeout(() => {
+        const nextHpPercent = Math.round((updatedMonster.currentHp / updatedMonster.maxHp) * 100);
+        if (!result.defeated && nextHpPercent > 0 && nextHpPercent <= 30 && soundEnabled) {
+          playCrySound();
+        }
+      }, T_CRY - T_HURT);
+
+      const idleDelay = T_IDLE - T_HURT + (result.defeated ? T_ELIMINATE_DELAY + T_ELIMINATE_TRANSITION : 0);
+      window.setTimeout(() => {
+        setHeroPhase("idle");
+        setMonsterHurt(false);
+        setDamageNumber(null);
+        setBusy(false);
+        if (result.defeated && result.coupon) {
+          if (soundEnabled) playVictorySound();
+          setVictory({ monsterName: result.coupon.monsterName, reward: result.coupon.reward });
+        }
+      }, idleDelay);
     }, T_HURT);
-
-    window.setTimeout(() => {
-      const nextHpPercent = Math.round((updatedMonster.currentHp / updatedMonster.maxHp) * 100);
-      if (!result.defeated && nextHpPercent > 0 && nextHpPercent <= 30 && soundEnabled) {
-        playCrySound();
-      }
-    }, T_CRY);
-
-    const idleDelay = T_IDLE + (result.defeated ? T_ELIMINATE_DELAY + T_ELIMINATE_TRANSITION : 0);
-    window.setTimeout(() => {
-      setHeroPhase("idle");
-      setMonsterHurt(false);
-      setDamageNumber(null);
-      setBusy(false);
-      if (result.defeated && result.coupon) {
-        if (soundEnabled) playVictorySound();
-        setVictory({ monsterName: result.coupon.monsterName, reward: result.coupon.reward });
-      }
-    }, idleDelay);
   }
 
   return (
