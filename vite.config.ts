@@ -14,6 +14,9 @@ export default defineConfig({
       includeAssets: ['icons/*.png', 'icons/*.svg'],
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,webmanifest}'],
+        // 主站的 service worker 範圍涵蓋整個網域，會把 /yuzu-local/（朋友的本機版）
+        // 的導覽也攔截成主站頁面，必須排除，兩個 App 才能在同一支手機共存。
+        navigateFallbackDenylist: [/^\/yuzu-local\//],
       },
     }),
   ],
