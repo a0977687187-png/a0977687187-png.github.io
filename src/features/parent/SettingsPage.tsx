@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useAppData } from "../../state/AppDataContext";
-import { updateSettings } from "../../db/repository";
+import { updateSettings, STUDY_DEFAULTS } from "../../db/repository";
 import { exportAllData, importAllData, resetAllData } from "../../db/database";
 import { CURRENT_SCHEMA_VERSION } from "../../db/schema";
 import { SYNC_BUILD_ENABLED } from "../../db/firebaseConfig";
@@ -15,9 +15,38 @@ export function SettingsPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [importMsg, setImportMsg] = useState("");
   const [copyMsg, setCopyMsg] = useState("");
+  const [studyMsg, setStudyMsg] = useState("");
+  const [studyMinutes, setStudyMinutes] = useState("");
+  const [studyPoints, setStudyPoints] = useState("");
+  const [studyDailyLimit, setStudyDailyLimit] = useState("");
+  const [studyLoaded, setStudyLoaded] = useState(false);
   const householdCode = SYNC_BUILD_ENABLED ? getStoredHouseholdCode() : null;
 
   if (!settings) return null;
+
+  // 首次渲染時把目前設定帶進讀書時間表單（settings 已確定存在）
+  if (!studyLoaded) {
+    setStudyMinutes(String(settings.studyMinutes ?? STUDY_DEFAULTS.minutes));
+    setStudyPoints(String(settings.studyPoints ?? STUDY_DEFAULTS.points));
+    setStudyDailyLimit(String(settings.studyDailyLimit ?? STUDY_DEFAULTS.dailyLimit));
+    setStudyLoaded(true);
+  }
+
+  async function saveStudySettings() {
+    const clamp = (raw: string, fallback: number, min: number, max: number) => {
+      const n = Math.round(Number(raw));
+      return Number.isFinite(n) && n >= min ? Math.min(n, max) : fallback;
+    };
+    const minutes = clamp(studyMinutes, STUDY_DEFAULTS.minutes, 1, 180);
+    const points = clamp(studyPoints, STUDY_DEFAULTS.points, 1, 100);
+    const dailyLimit = clamp(studyDailyLimit, STUDY_DEFAULTS.dailyLimit, 1, 10);
+    await updateSettings({ studyMinutes: minutes, studyPoints: points, studyDailyLimit: dailyLimit });
+    await refreshSettings();
+    setStudyMinutes(String(minutes));
+    setStudyPoints(String(points));
+    setStudyDailyLimit(String(dailyLimit));
+    setStudyMsg("讀書時間設定已儲存");
+  }
 
   async function copyHouseholdCode() {
     if (!householdCode) return;
@@ -123,6 +152,39 @@ export function SettingsPage() {
           更新 PIN
         </button>
         {pinMsg && <p className="text-muted">{pinMsg}</p>}
+      </div>
+
+      <div className="card stack">
+        <h3>📚 讀書時間計時</h3>
+        <p className="text-muted">孩子在首頁點「讀書時間」開始計時，達成目標就自動獲得點數。</p>
+        <label className="text-muted" style={{ fontSize: 14 }}>
+          一次要讀幾分鐘（1~180）
+          <input
+            inputMode="numeric"
+            value={studyMinutes}
+            onChange={(e) => setStudyMinutes(e.target.value.replace(/\D/g, ""))}
+          />
+        </label>
+        <label className="text-muted" style={{ fontSize: 14 }}>
+          達成獎勵點數（1~100）
+          <input
+            inputMode="numeric"
+            value={studyPoints}
+            onChange={(e) => setStudyPoints(e.target.value.replace(/\D/g, ""))}
+          />
+        </label>
+        <label className="text-muted" style={{ fontSize: 14 }}>
+          每天最多次數（1~10）
+          <input
+            inputMode="numeric"
+            value={studyDailyLimit}
+            onChange={(e) => setStudyDailyLimit(e.target.value.replace(/\D/g, ""))}
+          />
+        </label>
+        <button className="primary-btn" onClick={saveStudySettings}>
+          儲存讀書時間設定
+        </button>
+        {studyMsg && <p className="text-muted">{studyMsg}</p>}
       </div>
 
       <div className="card stack">

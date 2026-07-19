@@ -743,3 +743,13 @@
   background: #fdeceb;
 }
 
+
+/* ---------- 讀書時間計時 ---------- */
+.study-countdown {
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-primary-dark);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+}

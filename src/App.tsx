@@ -7,6 +7,7 @@ import { TaskListReadonly } from "./features/child/TaskListReadonly";
 import { Battle } from "./features/child/Battle";
 import { HeroShop } from "./features/child/HeroShop";
 import { Quiz } from "./features/child/Quiz";
+import { StudyTimer } from "./features/child/StudyTimer";
 import { PrizeRedeem } from "./features/child/PrizeRedeem";
 import { MyRecords } from "./features/child/MyRecords";
 import { PinGate } from "./features/parent/PinGate";
@@ -60,6 +61,7 @@ function App() {
         <Route path="/child/tasks" element={<TaskListReadonly />} />
         <Route path="/child/battle" element={<Battle />} />
         <Route path="/child/quiz" element={<Quiz />} />
+        <Route path="/child/study" element={<StudyTimer />} />
         <Route path="/child/heroes" element={<HeroShop />} />
         <Route path="/child/prizes" element={<PrizeRedeem />} />
         <Route path="/child/records" element={<MyRecords />} />

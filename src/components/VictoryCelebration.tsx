@@ -61,7 +61,8 @@ export function VictoryCelebration({ monsterName, reward, soundEnabled, onContin
 }
 
 // CSS 煙火：4 束不同位置/顏色/延遲的爆發，每束 8 條放射線（--angle 控制方向）。
-function Fireworks(): JSX.Element {
+// 讀書時間達成慶祝（StudyTimer.tsx）也共用這組煙火。
+export function Fireworks(): JSX.Element {
   const bursts = [
     { left: "16%", top: "16%", color: "#ffd166", delay: 0 },
     { left: "78%", top: "12%", color: "#ef476f", delay: 0.45 },

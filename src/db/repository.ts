@@ -563,6 +563,45 @@ function shuffle<T>(arr: T[]): T[] {
   return copy;
 }
 
+// ---------- 讀書時間計時 ----------
+export const STUDY_DEFAULTS = { minutes: 15, points: 5, dailyLimit: 2 };
+
+export interface StudyStatus {
+  minutes: number;
+  points: number;
+  dailyLimit: number;
+  completedToday: number;
+  canStudy: boolean;
+}
+
+export async function getStudyStatus(childId: string): Promise<StudyStatus> {
+  const [settings, ledger] = await Promise.all([getSettings(), listLedger(childId)]);
+  const minutes = settings.studyMinutes ?? STUDY_DEFAULTS.minutes;
+  const points = settings.studyPoints ?? STUDY_DEFAULTS.points;
+  const dailyLimit = settings.studyDailyLimit ?? STUDY_DEFAULTS.dailyLimit;
+  const today = todayStr();
+  const completedToday = ledger.filter(
+    (e) => e.refType === "study" && new Date(e.timestamp).toDateString() === today
+  ).length;
+  return { minutes, points, dailyLimit, completedToday, canStudy: completedToday < dailyLimit };
+}
+
+export interface StudyCompleteResult {
+  awarded: boolean;
+  awardedPoints: number;
+  child?: Child;
+}
+
+// 讀書時間達成：再驗一次當日上限（避免多裝置同時完成重複給點的空間縮到最小）再入點。
+export async function completeStudySession(childId: string, minutes: number): Promise<StudyCompleteResult> {
+  const status = await getStudyStatus(childId);
+  if (!status.canStudy) {
+    return { awarded: false, awardedPoints: 0 };
+  }
+  const result = await applyLedgerEntry(childId, status.points, `完成讀書時間 ${minutes} 分鐘`, "study");
+  return { awarded: true, awardedPoints: result.entry.delta, child: result.child };
+}
+
 export interface QuizStatus {
   roundsUsedToday: number;
   roundsAllowed: number;

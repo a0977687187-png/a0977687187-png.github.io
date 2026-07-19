@@ -39,7 +39,7 @@ export interface DeductionRule {
   createdAt: string;
 }
 
-export type LedgerRefType = "task" | "attack" | "quiz" | "purchase" | "redeem" | "adjust" | "deduction";
+export type LedgerRefType = "task" | "attack" | "quiz" | "purchase" | "redeem" | "adjust" | "deduction" | "study";
 
 export interface PointLedgerEntry {
   id: string;
@@ -166,4 +166,7 @@ export interface Settings {
   quizFullScorePoints?: number; // 5 題全對的獎勵點數，預設 5
   quizPerCorrectPoints?: number; // 答對 3~4 題時每題點數，預設 1
   quizFullScoreOnly?: boolean; // true = 全對才給點，預設 false
+  studyMinutes?: number; // 讀書計時一次要讀幾分鐘，預設 15
+  studyPoints?: number; // 讀書計時達成獎勵點數，預設 5
+  studyDailyLimit?: number; // 每天最多可完成幾次讀書計時，預設 2
 }

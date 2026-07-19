@@ -108,6 +108,7 @@ export function ChildHome() {
         <div className="big-button-grid">
           <BigButton icon="⚔️" label="打怪獸" onClick={() => navigate("/child/battle")} />
           <BigButton icon="📝" label="每日測驗" onClick={() => navigate("/child/quiz")} />
+          <BigButton icon="📚" label="讀書時間" onClick={() => navigate("/child/study")} />
           <BigButton icon="🦸" label="英雄商店" onClick={() => navigate("/child/heroes")} />
           <BigButton icon="🎁" label="獎品兌換" onClick={() => navigate("/child/prizes")} />
         </div>
