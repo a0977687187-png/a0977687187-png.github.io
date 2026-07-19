@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="35%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#fff3d6" />
+      <stop offset="100%" stop-color="#ffcf7a" />
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)" />
+
+  <!-- 葉子 -->
+  <path d="M256 96c10-38 46-58 84-52-2 40-30 68-68 70-10 0-16-9-16-18z" fill="#63B02B" stroke="#3a2a1a" stroke-width="8" stroke-linejoin="round" />
+
+  <!-- 柚子本體 -->
+  <circle cx="256" cy="290" r="150" fill="#ff9f43" stroke="#3a2a1a" stroke-width="10" />
+  <circle cx="256" cy="290" r="150" fill="none" stroke="#e07b1f" stroke-width="4" opacity="0.4" />
+
+  <!-- 高光 -->
+  <ellipse cx="205" cy="235" rx="34" ry="22" fill="#ffe3ad" opacity="0.85" />
+
+  <!-- 腮紅 -->
+  <ellipse cx="196" cy="312" rx="20" ry="13" fill="#ff8a80" opacity="0.75" />
+  <ellipse cx="316" cy="312" rx="20" ry="13" fill="#ff8a80" opacity="0.75" />
+
+  <!-- 表情 -->
+  <circle cx="216" cy="288" r="12" fill="#3a2a1a" />
+  <circle cx="296" cy="288" r="12" fill="#3a2a1a" />
+  <circle cx="220" cy="284" r="4" fill="#ffffff" />
+  <circle cx="300" cy="284" r="4" fill="#ffffff" />
+  <path d="M224 322q32 26 64 0" stroke="#3a2a1a" stroke-width="10" fill="none" stroke-linecap="round" />
+
+  <!-- 金幣點綴 -->
+  <circle cx="380" cy="380" r="34" fill="#F1C40F" stroke="#3a2a1a" stroke-width="7" />
+  <text x="380" y="392" font-family="Arial, sans-serif" font-size="34" font-weight="900" fill="#a5730a" text-anchor="middle">$</text>
+</svg>
